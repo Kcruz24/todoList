@@ -1,0 +1,26 @@
+<%- include("partials/head") %>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">To-Do</h1>
+            <div class="box has-background-primary has-text-white">
+                <div class="box">
+                    <%= todos.data %>
+                </div>
+
+                <form action="/todos/<%= todos._id %>?_method=DELETE" method="POST">
+                    <a class="button has-background-warning has-text-dark" href="/todos/<%= todos._id %>/edit ">Edit</a>
+                    <button class="button has-background-danger has-text-white">Delete</button>
+                </form>
+            </div>
+
+            <div class="button is-link">
+                <a class="has-text-white" href="/todos">Back to todo list</a>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+<%- include("partials/footer") %>

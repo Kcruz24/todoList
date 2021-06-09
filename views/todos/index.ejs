@@ -1,0 +1,33 @@
+<%- include("partials/head") %>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Most Inefficient To-Do List</h1>
+
+            <div class="box has-background-primary">
+                <% for (let todo of todos) { %>
+
+                <div class="columns">
+                    <div class="box column has-background-danger-light">
+                        <a class="has-text-dark" href="/todos/<%= todo._id %> ">
+                            <%= todo.data %>
+                        </a>
+                    </div>
+
+                    <div>
+                        <p class="box column ml-2 is-link"><%= todo.checked %></p>
+                    </div>
+                </div>
+
+                <% } %>
+            </div>
+
+            <div class="button is-info">
+                <a class="has-text-white" href="/todos/new">New ToDo</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+<%- include("partials/footer") %>

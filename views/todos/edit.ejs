@@ -1,0 +1,43 @@
+<%- include("partials/head") %>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Edit To-Do:</h1>
+
+            <div class="box has-background-warning">
+                <form action="/todos/<%= todos._id %>?_method=PUT" method="POST">
+
+                    <div class="block">
+                        <label for="data"></label>
+                        <input class="input is-primary" type="text" name="data" id="data" placholder="<%= todos.data %>"
+                            value="<%= todos.data %>">
+                    </div>
+
+                    <div class="block">
+                        <label for="checked"></label>
+                        <input class="input is-primary" type="text" name="checked" id="checked"
+                            placholder="<%= todos.checked %>"
+                            value="<%= todos.checked %>">
+                    </div>
+
+                    <div class="block">
+                        <button class="button has-background-success has-text-white">submit</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+            <div class="button is-danger">
+                <a class="has-text-white" href="/todos/<%= todos._id %> ">Cancel</a>
+            </div>
+
+            <div class="button is-link">
+                <a class="has-text-white" href="/todos">Back to todo list</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+<%- include("partials/footer") %>
