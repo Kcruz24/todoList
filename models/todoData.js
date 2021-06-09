@@ -4,9 +4,6 @@ const todoDataSchema = new mongoose.Schema({
     data: {
         type: String,
         required: true
-    },
-    checked: {
-        type: String
     }
 });
 

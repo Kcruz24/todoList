@@ -2,23 +2,23 @@
 
 <body>
     <section class="section">
-        <div class="container">
+        <div class="container column is-half">
             <h1 class="title">Inefficient To-Do List</h1>
 
-            <div class="box has-background-primary">
+            <div class="box has-background-primary column">
                 <% for (let todo of todos) { %>
 
                 <div class="columns">
-                    <div class="column is-11">
-                        <a class="box column" href="/todos/<%= todo._id %> ">
+                    <div class="column is-10">
+                        <a class="box column" href="/todos/<%= todo._id %>/edit">
                             <%= todo.data %>
                         </a>
                     </div>
 
                     <div class="column">
-                        <a class="box column ml-2 is-link has-text-centered" href="/todos/<%  %> ">
-                            <%= todo.checked %>
-                        </a>
+                        <form action="/todos/<%=todo._id%>?_method=DELETE" method="POST">
+                            <button class="button box has-background-danger has-text-white m-1 ml-5">Delete</button>
+                        </form>
                     </div>
                 </div>
 

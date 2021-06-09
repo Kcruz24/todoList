@@ -82,13 +82,13 @@ app.get("/todos/:id/edit", async (req, res) => {
 app.put("/todos/:id", async (req, res) => {
     const { id } = req.params;
 
-    const todos = await ToDo.findByIdAndUpdate(id, req.body, {
+    await ToDo.findByIdAndUpdate(id, req.body, {
         runValidators: true,
         new: true
     });
 
     console.log(req.body);
-    res.redirect(`/todos/${todos._id}`);
+    res.redirect("/todos");
 });
 
 app.delete("/todos/:id", async (req, res) => {
