@@ -2,7 +2,8 @@
 
 <body>
     <section class="section">
-        <div class="container">
+        <div class="container column is-half">
+            
             <h1 class="title">New To-Do</h1>
 
             <form action="/todos" method="POST">
@@ -12,30 +13,15 @@
                 </div>
 
                 <div class="block">
-                    <p class="title is-size-4">Checked?</p>
-                </div>
-
-                <div class="box has-background-primary">
-
-                    <label class="radio has-text-white is-size-4" for="checked">
-                        <input class="input" placeholder="Yes/No" type="text" name="checked" id="checked">
-                    </label>
-
-                </div>
-
-                <div class="block">
                     <div class="button is-danger">
                         <a class="has-text-white" href="/todos/">Cancel</a>
                     </div>
 
                     <button class="button is-success">Submit</button>
                 </div>
-
             </form>
-
         </div>
     </section>
-
 </body>
 
 <%- include("partials/footer") %>

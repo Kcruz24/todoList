@@ -3,7 +3,6 @@ const app = express();
 const path = require("path");
 const port = 3000;
 const mongoose = require("mongoose");
-const ejs = require("ejs");
 const methodOverride = require("method-override");
 
 const ToDo = require("./models/todoData");
@@ -28,28 +27,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
-app.use(express.static(path.join(__dirname, "partials")));
 
-const dataExamples = [
-    "Gym",
-    "Clean Room",
-    "Look for passport",
-    "Go to sleep at 11:00pm"
-];
-
+// READ: Show index page where all the To-Do's are listed
 app.get("/todos", async (req, res) => {
     console.log(req.query);
     const { todoData } = req.query;
 
     const todos = await ToDo.find({ todoData });
 
-    res.render("todos/index", { todos, dataExamples });
+    res.render("todos/index", {todos});
 });
 
+// CREATE: New To-Do's
 app.get("/todos/new", (req, res) => {
     res.render("todos/new");
 });
 
+// Save new to-do created in the database
 app.post("/todos", async (req, res) => {
     console.log("hola Post");
     console.log("This is req.body:", req.body);
@@ -61,15 +55,7 @@ app.post("/todos", async (req, res) => {
     res.redirect("/todos");
 });
 
-app.get("/todos/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const todos = await ToDo.findById(id);
-    console.log(todos);
-
-    res.render("todos/show", { todos });
-});
-
+// Show edit page of a single to-do
 app.get("/todos/:id/edit", async (req, res) => {
     const { id } = req.params;
 
@@ -79,6 +65,7 @@ app.get("/todos/:id/edit", async (req, res) => {
     res.render("todos/edit", { todos });
 });
 
+// UPDATE: Selected to-do
 app.put("/todos/:id", async (req, res) => {
     const { id } = req.params;
 
@@ -91,6 +78,7 @@ app.put("/todos/:id", async (req, res) => {
     res.redirect("/todos");
 });
 
+// DELETE: Selected to-do
 app.delete("/todos/:id", async (req, res) => {
     const {id} = req.params;
     await ToDo.findByIdAndDelete(id);
