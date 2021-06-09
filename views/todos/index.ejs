@@ -3,20 +3,22 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Most Inefficient To-Do List</h1>
+            <h1 class="title">Inefficient To-Do List</h1>
 
             <div class="box has-background-primary">
                 <% for (let todo of todos) { %>
 
                 <div class="columns">
-                    <div class="box column has-background-danger-light">
-                        <a class="has-text-dark" href="/todos/<%= todo._id %> ">
+                    <div class="column is-11">
+                        <a class="box column" href="/todos/<%= todo._id %> ">
                             <%= todo.data %>
                         </a>
                     </div>
 
-                    <div>
-                        <p class="box column ml-2 is-link"><%= todo.checked %></p>
+                    <div class="column">
+                        <a class="box column ml-2 is-link has-text-centered" href="/todos/<%  %> ">
+                            <%= todo.checked %>
+                        </a>
                     </div>
                 </div>
 

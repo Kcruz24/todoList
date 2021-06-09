@@ -5,8 +5,18 @@
         <div class="container">
             <h1 class="title">To-Do</h1>
             <div class="box has-background-primary has-text-white">
-                <div class="box">
-                    <%= todos.data %>
+                <div class="columns">
+                    <div class="column is-11 is-size-5">
+                        <div class="box">
+                            <%= todos.data %>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="box has-text-centered is-size-5">
+                            <%= todos.checked %>
+                        </div>
+                    </div>
                 </div>
 
                 <form action="/todos/<%= todos._id %>?_method=DELETE" method="POST">

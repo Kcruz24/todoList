@@ -1,0 +1,17 @@
+<%- include("partials/head") %>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <form action="/todos">
+                <div class="block">
+                    <label for="checked"></label>
+                    <input class="input is-primary" type="text" name="checked" id="checked"
+                        placholder="<%= todos.checked %>" value="<%= todos.checked %>">
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+<%- include("partials/footer") %>
