@@ -7,6 +7,9 @@ const methodOverride = require("method-override");
 
 const ToDo = require("./models/todoData");
 
+
+///////////// IPAD VERSION ////////////////
+
 mongoose
     .connect("mongodb://localhost:27017/todoList", {
         useNewUrlParser: true,
