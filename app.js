@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = 3000;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
-
 const ToDo = require("./models/todoData");
+const ejsMate = require("ejs-mate");
 
 mongoose
     .connect("mongodb://localhost:27017/todoList", {
@@ -20,9 +19,10 @@ mongoose
         console.log(err);
     });
 
+app.engine("ejs", ejsMate);
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -86,6 +86,7 @@ app.delete("/todos/:id", async (req, res) => {
     res.redirect("/todos")
 })
 
+const port = 3000;
 app.listen(port, () => {
     console.log(`LISTENING ON PORT ${port}!`);
 });
