@@ -1,3 +1,7 @@
 html {
     background-color: hsl(0, 0%, 21%);
 }
+
+#newTodo {
+    padding-right: 27px;
+}
