@@ -1,9 +1,3 @@
 html {
     background-color: hsl(0, 0%, 21%);
 }
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
