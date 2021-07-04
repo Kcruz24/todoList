@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const todosRouter = require("./routes/todos");
+const usersRouter = require("./routes/users");
 
 // DB Connection
 mongoose
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, "views")));
 
 // Routes //
 app.use("/", todosRouter);
+app.use("/", usersRouter);
 
 // Port //
 const port = 3000;
