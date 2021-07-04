@@ -1,34 +1,32 @@
 <%- layout("./layout/boilerplate") %>
 
 <section class="section">
-    <div class="container column is-two-fifths">
+    <div class="container column is-two-fifths is-mobile">
 
         <h1 class="title has-text-white">To-Do List</h1>
 
-        <div class="box has-background-grey-light">
+        <div class="box has-background-grey-light is-half column pr-5">
             <form action="/todos" method="POST">
-                <input class="input" type="text" placeholder="New Todo" name="data" id="data">
+                <input class="box input mx-2" type="text" placeholder="New Todo" name="data" id="data">
             </form>
-
         </div>
 
         <div class="box has-background-info">
             <% for (let todo of todos) { %>
-            <div class="columns is-mobile bodyData">
-                <input class="isCheck" type="checkbox">
+            <div class="columns is-mobile ">
 
                 <div class="column">
                     <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
-                        <div class="block">
-                            <input class="input todoData" type="text" name="data" id="data" value="<%= todo.data %>">
-                            <!-- <p class="box p-3 todoData" id="data" name="data"><%= todo.data %></p> -->
+                        <div class="">
+                            <input class="box input is-focused m-0" type="text" name="data" id="data"
+                                value="<%= todo.data %>">
                         </div>
                     </form>
                 </div>
 
-                <div class="block mt-4">
+                <div class="mt-4">
                     <form action="/todos/<%=todo._id%>?_method=DELETE" method="POST">
-                        <button class="button box has-background-danger has-text-white mr-2">Delete</button>
+                        <button class="button box has-background-success has-text-white mr-2">Done</button>
                     </form>
                 </div>
             </div>
@@ -36,45 +34,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    const bodyData = document.querySelector(".bodyData");
-
-    bodyData.addEventListener("click", (event) => {
-        const inputData = document.querySelector(".todoData");
-        const checkbox = document.querySelector(".isCheck");
-
-        if (inputData.style.textDecoration !== "line-through") {
-            inputData.style.textDecoration = "line-through"
-        } else if (!checkbox.checked) {
-            inputData.style.textDecoration = "none"
-        }
-    })
-
-
-    // inputData.addEventListener("click", (event) => {
-    //     if (inputData.style.textDecoration !== "line-through") {
-    //         inputData.style.textDecoration = "line-through"
-    //     } else if (!checkbox.checked) {
-    //         inputData.style.textDecoration = "none"
-    //     }
-    // })
-
-    // checkbox.forEach(box => box.addEventListener("click", (e) => {
-    //     if (checkbox.checked) {
-    //         // inputData.style.textDecoration = "line-through"
-    //         alert("Checked!");
-    //     } else if (!checkbox.checked) {
-    //         inputData.style.textDecoration = "none"
-    //     }
-    // }))
-
-
-    // function isChecked() {
-    //     if (checkbox.checked) {
-    //         inputData.style.textDecoration = "line-through"
-    //     } else if (!checkbox.checked) {
-    //         inputData.style.textDecoration = "none"
-    //     }
-    // }
-</script>
