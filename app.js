@@ -45,7 +45,7 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // Use username and passsword to auth
+// // Use username and password to auth
 passport.use(new LocalStrategy(User.authenticate()));
 
 // // Serialization refers to how do we store a user in a session

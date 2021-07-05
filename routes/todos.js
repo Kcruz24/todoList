@@ -6,7 +6,7 @@ const { isLoggedIn } = require("../middleware");
 // READ: Show index page where all the To-Do's are listed
 route.get("/", isLoggedIn, async (req, res) => {
     console.log(req.query);
-    const {todoData} = req.query;
+    const { todoData } = req.query;
 
     console.log("REQ BODY: => ", req.body);
 
