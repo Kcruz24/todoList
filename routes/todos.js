@@ -1,11 +1,14 @@
 const express = require("express");
 const route = express.Router();
 const ToDo = require("../models/todoData");
+const { isLoggedIn } = require("../middleware");
 
 // READ: Show index page where all the To-Do's are listed
-route.get("/", async (req, res) => {
+route.get("/", isLoggedIn, async (req, res) => {
     console.log(req.query);
-    const { todoData } = req.query;
+    const {todoData} = req.query;
+
+    console.log("REQ BODY: => ", req.body);
 
     const todos = await ToDo.find({ todoData });
 
@@ -14,10 +17,7 @@ route.get("/", async (req, res) => {
 
 // CREATE: New To-Do
 // Save new to-do created in the database
-route.post("/", async (req, res) => {
-    console.log("hola Post");
-    console.log("This is req.body:", req.body);
-
+route.post("/", isLoggedIn, async (req, res) => {
     const newTodo = new ToDo(req.body);
     await newTodo.save();
 
@@ -26,7 +26,7 @@ route.post("/", async (req, res) => {
 });
 
 // UPDATE: Selected to-do
-route.put("/:id", async (req, res) => {
+route.put("/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params;
 
     await ToDo.findByIdAndUpdate(id, req.body, {
@@ -39,7 +39,7 @@ route.put("/:id", async (req, res) => {
 });
 
 // DELETE: Selected to-do
-route.delete("/:id", async (req, res) => {
+route.delete("/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await ToDo.findByIdAndDelete(id);
 
