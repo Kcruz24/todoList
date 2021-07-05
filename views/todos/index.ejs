@@ -20,8 +20,8 @@
                 <div class="column">
                     <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
                         <div class="block">
-                            <input class="input todoData" type="text" name="data" id="data" value="<%= todo.data %>">
-                            <!-- <p class="box p-3 todoData" id="data" name="data"><%= todo.data %></p> -->
+                            <!-- <input class="input todoData" type="text" name="data" id="data" value="<%= todo.data %>"> -->
+                            <p onclick="isChecked()" class="box p-3 todoData" id="data" name="data"><%= todo.data %></p>
                         </div>
                     </form>
                 </div>
@@ -39,17 +39,19 @@
 
 <script>
     const bodyData = document.querySelector(".bodyData");
+    const inputData = document.querySelector(".todoData");
+    const checkbox = document.querySelector(".isCheck");
 
-    bodyData.addEventListener("click", (event) => {
-        const inputData = document.querySelector(".todoData");
-        const checkbox = document.querySelector(".isCheck");
+    // bodyData.addEventListener("click", (event) => {
+    //     const inputData = document.querySelector("p");
+    //     const checkbox = document.querySelector(".isCheck");
 
-        if (inputData.style.textDecoration !== "line-through") {
-            inputData.style.textDecoration = "line-through"
-        } else if (!checkbox.checked) {
-            inputData.style.textDecoration = "none"
-        }
-    })
+    //     if (inputData.style.textDecoration !== "line-through") {
+    //         inputData.style.textDecoration = "line-through"
+    //     } else if (!checkbox.checked) {
+    //         inputData.style.textDecoration = "none"
+    //     }
+    // })
 
 
     // inputData.addEventListener("click", (event) => {
@@ -70,11 +72,11 @@
     // }))
 
 
-    // function isChecked() {
-    //     if (checkbox.checked) {
-    //         inputData.style.textDecoration = "line-through"
-    //     } else if (!checkbox.checked) {
-    //         inputData.style.textDecoration = "none"
-    //     }
-    // }
+    function isChecked() {
+        if (inputData.style.textDecoration !== "line-through") {
+            inputData.style.textDecoration = "line-through"
+        } else {
+            inputData.style.textDecoration = "none"
+        }
+    }
 </script>
