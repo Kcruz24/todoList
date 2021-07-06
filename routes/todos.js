@@ -6,11 +6,9 @@ const { isLoggedIn } = require("../middleware");
 // READ: Show index page where all the To-Do's are listed
 route.get("/", isLoggedIn, async (req, res) => {
     console.log(req.query);
-    const { todoData } = req.query;
+    const todos = await ToDo.find({}).populate("author");
 
-    console.log("REQ BODY: => ", req.body);
-
-    const todos = await ToDo.find({ todoData });
+    console.log("TODO'S: ", todos);
 
     res.render("todos/index", { todos });
 });
@@ -19,6 +17,8 @@ route.get("/", isLoggedIn, async (req, res) => {
 // Save new to-do created in the database
 route.post("/", isLoggedIn, async (req, res) => {
     const newTodo = new ToDo(req.body);
+    newTodo.author = req.user._id;
+
     await newTodo.save();
 
     console.log(newTodo);
