@@ -3,12 +3,9 @@ const route = express.Router();
 const ToDo = require("../models/todoData");
 const { isLoggedIn } = require("../middleware");
 
-// READ: Show index page where all the To-Do's are listed
+// READ: Show index page where all the To-Do's are listed based on the user logged in
 route.get("/", isLoggedIn, async (req, res) => {
-    console.log(req.query);
-    const todos = await ToDo.find({}).populate("author");
-
-    console.log("TODO'S: ", todos);
+    const todos = await ToDo.find({ author: { _id: req.user._id } });
 
     res.render("todos/index", { todos });
 });
