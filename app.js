@@ -9,6 +9,7 @@ const usersRouter = require("./routes/users");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
+const flash = require("connect-flash");
 const { sessionConfig } = require("./controllers/users");
 
 // Models
@@ -51,6 +52,18 @@ passport.use(new LocalStrategy(User.authenticate()));
 // // Serialization refers to how do we store a user in a session
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//////////////// MIDDLEWARES ///////////////////
+app.use(flash());
+
+
+// Locals //
+app.use((req, res, next) => {
+
+    res.locals.error = "error";
+    res.locals.success = "success";
+})
+
 
 // Routes //
 app.use("/", todosRouter);
