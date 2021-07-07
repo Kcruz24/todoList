@@ -51,7 +51,7 @@ route.get("/logout", (req, res) => {
     req.logout();
 
     req.flash("success", "Successfully logged out");
-    res.redirect("/login");
+    res.redirect("/");
 });
 
 module.exports = route;

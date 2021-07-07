@@ -1,0 +1,20 @@
+<%- include("../partials/head") %>
+
+<body>
+    <%- include("../partials/navbar") %>
+
+    <main>
+        <section class="section">
+            <div class="container column is-two-fifths is-mobile">
+                <%- include("../partials/flash") %>
+
+                <%- body %>
+            </div>
+        </section>
+    </main>
+
+    <script src="/javascripts/bulmaDelete.js"></script>
+    <script src="/javascripts/toggleNavbarBurger.js"></script>
+</body>
+
+</html>
