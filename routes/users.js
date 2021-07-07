@@ -10,7 +10,7 @@ route.get("/login", (req, res) => {
 });
 
 route.post("/login", authenticate, (req, res) => {
-    const redirectUrl = req.session.returnTo || "/";
+    const redirectUrl = req.session.returnTo || "/todos";
 
     delete req.session.returnTo;
 
@@ -39,7 +39,7 @@ route.post("/signup", async (req, res) => {
                 "success",
                 `Thanks for signing up ${username}! Hope you enjoy your new to-do list!`
             );
-            res.redirect("/");
+            res.redirect("/todos");
         });
     } catch (e) {
         req.flash("error", e.message);

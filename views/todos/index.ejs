@@ -3,7 +3,7 @@
 <h1 class="title has-text-white">To-Do List</h1>
 
 <div id="newTodo" class="box has-background-grey-light is-half column ">
-    <form action="/" method="POST">
+    <form action="/todos" method="POST">
         <input class="box input mx-2" type="text" placeholder="New Todo" name="data" id="data">
     </form>
 </div>
@@ -13,7 +13,7 @@
     <% for (let todo of todos) { %>
         <div class="columns is-mobile ">
             <div class="column">
-                <form action="/<%= todo._id %>?_method=PUT" method="POST">
+                <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
                     <div>
                         <label for="data"></label>
                         <input class="box input m-0" type="text" name="data" id="data" value="<%= todo.data %>">
@@ -22,7 +22,7 @@
             </div>
 
             <div class="mt-4">
-                <form action="/<%= todo._id; %>?_method=DELETE" method="POST">
+                <form action="/todos/<%= todo._id; %>?_method=DELETE" method="POST">
                     <button class="button box has-background-success has-text-white mr-2">Done</button>
                 </form>
             </div>

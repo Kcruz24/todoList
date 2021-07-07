@@ -66,10 +66,15 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/", (req, res) => {
+    res.render("home");
+})
 
 // Routes //
-app.use("/", todosRouter);
+app.use("/todos", todosRouter);
 app.use("/", usersRouter);
+
+
 
 // Port //
 const port = 3000;
