@@ -60,8 +60,10 @@ app.use(flash());
 // Locals //
 app.use((req, res, next) => {
 
-    res.locals.error = "error";
-    res.locals.success = "success";
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+
+    next();
 })
 
 

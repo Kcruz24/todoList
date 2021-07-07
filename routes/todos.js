@@ -2,6 +2,7 @@ const express = require("express");
 const route = express.Router();
 const ToDo = require("../models/todoData");
 const { isLoggedIn } = require("../middleware");
+const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
 
 // READ: Show index page where all the To-Do's are listed based on the user logged in
 route.get("/", isLoggedIn, async (req, res) => {
@@ -32,14 +33,20 @@ route.put("/:id", isLoggedIn, async (req, res) => {
     });
 
     console.log(req.body);
+
+    req.flash("success", "To-do successfully updated!");
     res.redirect("/");
 });
 
 // DELETE: Selected to-do
 route.delete("/:id", isLoggedIn, async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
+    const todoData = await ToDo.findById(id);
+
     await ToDo.findByIdAndDelete(id);
 
+    console.log("Data:", todoData);
+    req.flash("success", `${todoData.data} successfully deleted`);
     res.redirect("/");
 });
 
