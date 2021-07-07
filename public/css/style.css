@@ -5,3 +5,25 @@ html {
 #newTodo {
     padding-right: 27px;
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media (min-width: 320px) {
+    .loginAndSignupButton {
+        margin-top: 60%;
+    }
+
+    .signupPage, .loginPage {
+        margin-top: 50%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (min-width: 961px) {
+    .loginAndSignupButton {
+        margin-top: 30%;
+    }
+
+    .signupPage, .loginPage {
+        margin-top: 25%;
+    }
+}
