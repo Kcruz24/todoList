@@ -11,21 +11,22 @@
 <div class="box has-background-info">
 
     <% for (let todo of todos) { %>
-        <div class="columns is-mobile ">
+        <div class="columns is-mobile">
             <div class="column">
                 <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
                     <div>
                         <label for="data"></label>
-                        <input class="box input m-0" type="text" name="data" id="data" value="<%= todo.data %>">
+                        <input class="box input m-0 " type="text" name="data" id="data" value="<%= todo.data %>">
                     </div>
                 </form>
             </div>
 
-            <div class="mt-4">
+            <div class="doneButton">
                 <form action="/todos/<%= todo._id; %>?_method=DELETE" method="POST">
                     <button class="button box has-background-success has-text-white mr-2">Done</button>
                 </form>
             </div>
+
         </div>
     <% } %>
 </div>

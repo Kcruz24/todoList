@@ -15,6 +15,10 @@ html {
     .signupPage, .loginPage {
         margin-top: 50%;
     }
+
+    .doneButton {
+        margin-top: 4%;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -25,5 +29,9 @@ html {
 
     .signupPage, .loginPage {
         margin-top: 25%;
+    }
+
+    .doneButton {
+        margin-top: 2.5%;
     }
 }
