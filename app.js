@@ -11,6 +11,7 @@ const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const flash = require("connect-flash");
 const { sessionConfig } = require("./controllers/users");
+const ExpressError = require("./utils/ExpressError");
 
 // Models
 const User = require("./models/user");
@@ -38,7 +39,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
 
-//////////////// AUTH ///////////////////
+/////////////////// AUTH ///////////////////
 // Session //
 app.use(session(sessionConfig));
 
@@ -56,28 +57,42 @@ passport.deserializeUser(User.deserializeUser());
 //////////////// MIDDLEWARES ///////////////////
 app.use(flash());
 
-
 // Locals //
 app.use((req, res, next) => {
-
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
 
     next();
-})
+});
 
+/////////////////// ROUTES ////////////////////
+// Home
 app.get("/", (req, res) => {
     res.render("home");
-})
+});
 
-// Routes //
 app.use("/todos", todosRouter);
 app.use("/", usersRouter);
 
+/////////////// ERROR HANDLERS ////////////////////
+// Detect unknown routes
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404));
+});
 
+// Basic error handling //
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
 
-// Port //
+    if (!err.message) {
+        err.message = "Se jodio algo aqui.";
+    }
+
+    res.status(statusCode).render("error", { err });
+});
+
+/////////////////// PORT ////////////////////
 const port = 3000;
 app.listen(port, () => {
     console.log(`LISTENING ON PORT ${port}!`);
