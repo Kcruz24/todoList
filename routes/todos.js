@@ -1,6 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const ToDo = require("../models/todoData");
+const CompletedToDo = require("../models/completedTodos");
 const { isLoggedIn } = require("../middleware");
 const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
 
@@ -18,12 +19,19 @@ route.post(
     isLoggedIn,
     catchAsyncErrors(async (req, res) => {
         const newTodo = new ToDo(req.body);
+        const completedTodo = new CompletedToDo(req.body);
         newTodo.author = req.user._id;
+        completedTodo.author = req.user._id;
 
-        await newTodo.save();
+        if (newTodo.data.length > 0) {
+            await newTodo.save();
+            await completedTodo.save();
 
-        console.log(newTodo);
-        res.redirect("/todos");
+            return res.redirect("/todos");
+        } else {
+            req.flash("error", "Can't add an empty to-do! Try Again!");
+            return res.redirect("/todos");
+        }
     })
 );
 
@@ -39,25 +47,7 @@ route.put(
             new: true
         });
 
-        console.log(req.body);
-
         req.flash("success", "To-do successfully updated!");
-        res.redirect("/todos");
-    })
-);
-
-// DELETE: Selected to-do
-route.delete(
-    "/:id",
-    isLoggedIn,
-    catchAsyncErrors(async (req, res) => {
-        const { id } = req.params;
-        const todoData = await ToDo.findById(id);
-
-        await ToDo.findByIdAndDelete(id);
-
-        console.log("Data:", todoData);
-        req.flash("success", `${todoData.data} successfully deleted`);
         res.redirect("/todos");
     })
 );

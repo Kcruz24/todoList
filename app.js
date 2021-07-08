@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const todosRouter = require("./routes/todos");
 const usersRouter = require("./routes/users");
+const completedTodosRouter = require("./routes/completedTodos");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
@@ -72,6 +73,7 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
+app.use("/todos", completedTodosRouter);
 app.use("/todos", todosRouter);
 app.use("/", usersRouter);
 
