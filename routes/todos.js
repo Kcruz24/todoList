@@ -13,41 +13,53 @@ route.get("/", isLoggedIn, async (req, res) => {
 
 // CREATE: New To-Do
 // Save new to-do created in the database
-route.post("/", isLoggedIn, async (req, res) => {
-    const newTodo = new ToDo(req.body);
-    newTodo.author = req.user._id;
+route.post(
+    "/",
+    isLoggedIn,
+    catchAsyncErrors(async (req, res) => {
+        const newTodo = new ToDo(req.body);
+        newTodo.author = req.user._id;
 
-    await newTodo.save();
+        await newTodo.save();
 
-    console.log(newTodo);
-    res.redirect("/todos");
-});
+        console.log(newTodo);
+        res.redirect("/todos");
+    })
+);
 
 // UPDATE: Selected to-do
-route.put("/:id", isLoggedIn, async (req, res) => {
-    const { id } = req.params;
+route.put(
+    "/:id",
+    isLoggedIn,
+    catchAsyncErrors(async (req, res) => {
+        const { id } = req.params;
 
-    await ToDo.findByIdAndUpdate(id, req.body, {
-        runValidators: true,
-        new: true
-    });
+        await ToDo.findByIdAndUpdate(id, req.body, {
+            runValidators: true,
+            new: true
+        });
 
-    console.log(req.body);
+        console.log(req.body);
 
-    req.flash("success", "To-do successfully updated!");
-    res.redirect("/todos");
-});
+        req.flash("success", "To-do successfully updated!");
+        res.redirect("/todos");
+    })
+);
 
 // DELETE: Selected to-do
-route.delete("/:id", isLoggedIn, async (req, res) => {
-    const { id } = req.params;
-    const todoData = await ToDo.findById(id);
+route.delete(
+    "/:id",
+    isLoggedIn,
+    catchAsyncErrors(async (req, res) => {
+        const { id } = req.params;
+        const todoData = await ToDo.findById(id);
 
-    await ToDo.findByIdAndDelete(id);
+        await ToDo.findByIdAndDelete(id);
 
-    console.log("Data:", todoData);
-    req.flash("success", `${todoData.data} successfully deleted`);
-    res.redirect("/todos");
-});
+        console.log("Data:", todoData);
+        req.flash("success", `${todoData.data} successfully deleted`);
+        res.redirect("/todos");
+    })
+);
 
 module.exports = route;

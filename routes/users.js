@@ -24,28 +24,31 @@ route.get("/signup", (req, res) => {
 });
 
 // POST: Create user
-route.post("/signup", async (req, res) => {
-    try {
-        const { username, password, email } = req.body;
-        const user = new User({ email, username });
+route.post(
+    "/signup",
+    catchAsyncErrors(async (req, res) => {
+        try {
+            const { username, password, email } = req.body;
+            const user = new User({ email, username });
 
-        const registeredUser = await User.register(user, password);
-        console.log(registeredUser);
+            const registeredUser = await User.register(user, password);
+            console.log(registeredUser);
 
-        req.login(registeredUser, (err) => {
-            if (err) return next(err);
+            req.login(registeredUser, (err) => {
+                if (err) return next(err);
 
-            req.flash(
-                "success",
-                `Thanks for signing up ${username}! Hope you enjoy your new to-do list!`
-            );
-            res.redirect("/todos");
-        });
-    } catch (e) {
-        req.flash("error", e.message);
-        res.redirect("/signup");
-    }
-});
+                req.flash(
+                    "success",
+                    `Thanks for signing up ${username}! Hope you enjoy your new to-do list!`
+                );
+                res.redirect("/todos");
+            });
+        } catch (e) {
+            req.flash("error", e.message);
+            res.redirect("/signup");
+        }
+    })
+);
 
 route.get("/logout", (req, res) => {
     req.logout();
