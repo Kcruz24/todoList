@@ -2,10 +2,6 @@ html {
     background-color: hsl(0, 0%, 21%);
 }
 
-#newTodo {
-    padding-right: 27px;
-}
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media (min-width: 320px) {
     .loginAndSignupButton {
@@ -15,10 +11,6 @@ html {
     .signupPage,
     .loginPage {
         margin-top: 50%;
-    }
-
-    .doneButton {
-        margin-top: 4%;
     }
 }
 
@@ -31,10 +23,6 @@ html {
     .signupPage,
     .loginPage {
         margin-top: 25%;
-    }
-
-    .doneButton {
-        margin-top: 2.5%;
     }
 }
 

@@ -2,36 +2,36 @@
 
 <h1 class="title has-text-white">To-Do List</h1>
 
-<div id="newTodo" class="box has-background-grey-light">
-    <div class="columns is-mobile">
-        <div class="column">
-            <form action="/todos" method="POST">
-                <input class="box input m-0" type="text" placeholder="New Todo" name="data" id="data">
-            </form>
-        </div>
+<div class="has-background-grey-light box">
+    <form action="/todos" method="POST">
+        <div class="columns is-mobile">
 
-        <div class="doneButton">
-            <button class="button box is-warning has-text-dark">Create</button>
+            <div class="column">
+                <input class="box input m-0" type="text" placeholder="New Todo" name="data" id="data">
+            </div>
+
+            <div class="column is-4">
+                <button class=" button is-fullwidth box is-warning has-text-dark">Create</button>
+            </div>
+
         </div>
-    </div>
+    </form>
 </div>
 
 <div class="box has-background-info">
 
     <% for (let todo of todos) { %>
-    <div class="columns is-mobile">
+    <div class="columns is-mobile is-gapless">
+
         <div class="column">
             <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
-                <div>
-                    <label for="data"></label>
-                    <input class="box input m-0 " type="text" name="data" id="data" value="<%= todo.data %>">
-                </div>
+                <input class="box input px-2" type="text" name="data" id="data" value="<%= todo.data %>">
             </form>
         </div>
 
-        <div class="doneButton">
+        <div class="column is-3 ml-3">
             <form action="/todos/<%= todo._id; %>?_method=DELETE" method="POST">
-                <button class="button box has-background-success has-text-white mr-2">Done</button>
+                <button class="button is-fullwidth box has-background-success has-text-white mr-2">Done</button>
             </form>
         </div>
 
