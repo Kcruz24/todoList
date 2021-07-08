@@ -1,0 +1,26 @@
+<%- layout("./layouts/boilerplate") %>
+
+<h1 class="title has-text-white is-size-2-desktop is-size-3-mobile has-text-centered">Completed To-do's</h1>
+
+<div class="box has-background-info">
+
+    <% for (let todo of todos) { %>
+        <% if(todo.completed) { %>
+            <div class="columns is-mobile is-gapless">
+
+                <div class="column">
+                    <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
+                        <input class="box input px-3" type="text" name="data" id="data" value="<%= todo.data %>">
+                    </form>
+                </div>
+
+                <div class="column is-3 ml-3">
+                    <form action="/todos/<%= todo._id; %>?_method=DELETE" method="POST">
+                        <button class="button is-fullwidth box has-background-danger has-text-white mr-2">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        <% } %>
+    <% } %>
+</div>
