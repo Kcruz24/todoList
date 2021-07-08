@@ -1,5 +1,7 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+
     <div class="navbar-brand">
+
         <a class="navbar-item">
             <em class="far fa-user-circle fa-2x"></em>
         </a>
@@ -13,22 +15,34 @@
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
+
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu has-background-primary">
+
         <div class="navbar-start">
 
+            <a href="/todos" class="navbar-item has-text-white">
+                To-do's
+            </a>
+
+            <a href="/todos/completedTodos" class="navbar-item has-text-white">
+                Completed To-do's
+            </a>
 
         </div>
 
         <div class="navbar-end">
             <div class="navbar-item ">
+
                 <div class="buttons">
                     <% if (currentUser) { %>
                     <a href="/logout" class="button is-fullwidth is-danger">Logout</a>
                     <% } %>
                 </div>
+
             </div>
         </div>
+
     </div>
 </nav>
