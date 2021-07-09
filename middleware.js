@@ -28,7 +28,7 @@ module.exports.validateTodos = (req, res, next) => {
 };
 
 module.exports.validateCompletedTodos = (req, res, next) => {
-    const { error } = todoJoiSchema.validate(req.body);
+    const { error } = completedTodoJoiSchema.validate(req.body);
     const succes = !error;
 
     if (succes) {
