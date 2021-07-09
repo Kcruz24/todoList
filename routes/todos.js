@@ -1,8 +1,5 @@
 const express = require("express");
-const route = express.Router();
-const ToDo = require("../models/todoData");
-const CompletedToDo = require("../models/completedTodos");
-const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
+const router = express.Router();
 
 const {
     isLoggedIn,
@@ -10,54 +7,22 @@ const {
     validateCompletedTodos
 } = require("../middleware");
 
-// READ: Show index page where all the To-Do's are listed based on the user logged in
-route.get("/", isLoggedIn, async (req, res) => {
-    const todos = await ToDo.find({ author: { _id: req.user._id } });
+const {
+    renderAlltodos,
+    createTodo,
+    updateTodo
+} = require("../controllers/todos");
 
-    res.render("todos/index", { todos });
-});
+/////////////////// ROUTES ///////////////////////
 
-// CREATE: New To-Do
-// Save new to-do created in the database
-route.post(
-    "/",
-    isLoggedIn,
-    validateTodos,
-    validateCompletedTodos,
-    catchAsyncErrors(async (req, res) => {
-        const newTodo = new ToDo(req.body);
-        const completedTodo = new CompletedToDo(req.body);
-        newTodo.author = req.user._id;
-        completedTodo.author = req.user._id;
-
-        if (newTodo.data.length > 0) {
-            await newTodo.save();
-            await completedTodo.save();
-
-            return res.redirect("/todos");
-        } else {
-            req.flash("error", "Can't add an empty to-do! Try Again!");
-            return res.redirect("/todos");
-        }
-    })
-);
+// READ (GET): Show index page where all the To-Do's are listed based on the user logged in
+// CREATE (POST): New To-Do
+router
+    .route("/")
+    .get(isLoggedIn, renderAlltodos)
+    .post(isLoggedIn, validateTodos, validateCompletedTodos, createTodo);
 
 // UPDATE: Selected to-do
-route.put(
-    "/:id",
-    isLoggedIn,
-    validateTodos,
-    catchAsyncErrors(async (req, res) => {
-        const { id } = req.params;
+router.put("/:id", isLoggedIn, validateTodos, updateTodo);
 
-        await ToDo.findByIdAndUpdate(id, req.body, {
-            runValidators: true,
-            new: true
-        });
-
-        req.flash("success", "To-do successfully updated!");
-        res.redirect("/todos");
-    })
-);
-
-module.exports = route;
+module.exports = router;
