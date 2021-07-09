@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
-const todoDataSchema = new mongoose.Schema({
+const todoSchema = new mongoose.Schema({
     data: {
         type: String,
         required: true
@@ -15,7 +15,7 @@ const todoDataSchema = new mongoose.Schema({
 });
 
 // Compiling model
-const ToDo = mongoose.model("ToDo", todoDataSchema);
+const ToDo = mongoose.model("ToDo", todoSchema);
 
 // exporting model so it can be used somewhere else
 module.exports = ToDo;

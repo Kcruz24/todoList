@@ -2,8 +2,13 @@ const express = require("express");
 const route = express.Router();
 const ToDo = require("../models/todoData");
 const CompletedToDo = require("../models/completedTodos");
-const { isLoggedIn } = require("../middleware");
 const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
+
+const {
+    isLoggedIn,
+    validateTodos,
+    validateCompletedTodos
+} = require("../middleware");
 
 // READ: Show index page where all the To-Do's are listed based on the user logged in
 route.get("/", isLoggedIn, async (req, res) => {
@@ -17,6 +22,8 @@ route.get("/", isLoggedIn, async (req, res) => {
 route.post(
     "/",
     isLoggedIn,
+    validateTodos,
+    validateCompletedTodos,
     catchAsyncErrors(async (req, res) => {
         const newTodo = new ToDo(req.body);
         const completedTodo = new CompletedToDo(req.body);
@@ -39,6 +46,7 @@ route.post(
 route.put(
     "/:id",
     isLoggedIn,
+    validateTodos,
     catchAsyncErrors(async (req, res) => {
         const { id } = req.params;
 

@@ -2,12 +2,19 @@ const express = require("express");
 const route = express.Router();
 const ToDo = require("../models/todoData");
 const CompletedToDo = require("../models/completedTodos");
-const { isLoggedIn } = require("../middleware");
 const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
+
+const {
+    isLoggedIn,
+    validateTodos,
+    validateCompletedTodos
+} = require("../middleware");
 
 // GET: Render completed to-do's
 route.get(
     "/completedTodos",
+    isLoggedIn,
+    validateCompletedTodos,
     catchAsyncErrors(async (req, res) => {
         const todos = await CompletedToDo.find({
             author: { _id: req.user._id }
@@ -23,6 +30,8 @@ route.get(
 route.post(
     "/:id",
     isLoggedIn,
+    validateTodos,
+    validateCompletedTodos,
     catchAsyncErrors(async (req, res) => {
         const { id } = req.params;
         const todo = await ToDo.findById(id);
@@ -43,6 +52,7 @@ route.post(
 route.delete(
     "/:id",
     isLoggedIn,
+    validateCompletedTodos,
     catchAsyncErrors(async (req, res) => {
         const { id } = req.params;
         const todoData = await CompletedToDo.findById(id);
