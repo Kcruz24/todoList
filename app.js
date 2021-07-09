@@ -4,15 +4,19 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const todosRouter = require("./routes/todos");
-const usersRouter = require("./routes/users");
-const completedTodosRouter = require("./routes/completedTodos");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const flash = require("connect-flash");
-const { sessionConfig } = require("./controllers/users");
 const ExpressError = require("./utils/ExpressError");
+
+// Routes
+const todosRouter = require("./routes/todos");
+const usersRouter = require("./routes/users");
+const completedTodosRouter = require("./routes/completedTodos");
+
+// Controllers
+const { sessionConfig } = require("./controllers/users");
 
 // Models
 const User = require("./models/user");
@@ -21,7 +25,9 @@ const User = require("./models/user");
 mongoose
     .connect("mongodb://localhost:27017/todoList", {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
     })
     .then(() => {
         console.log("MONGOOSE CONNECTION OPEN!!!");
@@ -73,8 +79,7 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.use("/todos", completedTodosRouter);
-app.use("/todos", todosRouter);
+app.use("/todos", completedTodosRouter, todosRouter);
 app.use("/", usersRouter);
 
 /////////////// ERROR HANDLERS ////////////////////
@@ -86,8 +91,9 @@ app.all("*", (req, res, next) => {
 // Basic error handling //
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
+    const noErrorMessage = !err.message;
 
-    if (!err.message) {
+    if (noErrorMessage) {
         err.message = "Se jodio algo aqui.";
     }
 
