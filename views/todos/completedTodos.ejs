@@ -9,9 +9,7 @@
             <div class="columns is-mobile is-gapless">
 
                 <div class="column">
-                    <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
-                        <input class="box input px-3" type="text" name="data" id="data" value="<%= todo.data %>">
-                    </form>
+                    <p class="box button input has-text-justified"><%= todo.data %></p>
                 </div>
 
                 <div class="column is-3 ml-3">
