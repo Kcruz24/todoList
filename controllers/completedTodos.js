@@ -36,7 +36,11 @@ module.exports.deleteCompletedTodo = catchAsyncErrors(async (req, res) => {
     const { id } = req.params;
     const todoData = await CompletedToDo.findById(id);
 
+    console.log("Completed TODO BEFORE: ", todoData);
+
     await CompletedToDo.findByIdAndDelete(id);
+
+    console.log("Completed TODO: ", todoData);
 
     req.flash("success", `${todoData.data} successfully deleted`);
     res.redirect("/todos/completedTodos");

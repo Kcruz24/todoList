@@ -2,20 +2,8 @@ html {
     background-color: hsl(0, 0%, 21%);
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media (min-width: 320px) {
-    .loginAndSignupButton {
-        margin-top: 60%;
-    }
-
-    .signupPage,
-    .loginPage {
-        margin-top: 50%;
-    }
-}
-
 /* Large devices (laptops/desktops, 992px and up) */
-@media (min-width: 961px) {
+@media only screen and (min-width: 1200px) {
     .loginAndSignupButton {
         margin-top: 30%;
     }
@@ -26,7 +14,8 @@ html {
     }
 }
 
-@media only screen and (max-width: 768px) {
+/* Small devices (portrait tablets and large phones, 768px and up) */
+@media only screen and (max-width: 600px) {
     .navbar-menu {
         display: block;
         opacity: 0;
@@ -45,8 +34,29 @@ html {
         transform: none;
         pointer-events: auto;
     }
+
+    .loginAndSignupButton {
+        margin-top: 60%;
+    }
+
+    .signupPage,
+    .loginPage {
+        margin-top: 50%;
+    }
+
+    .modalInput {
+        width: 88%;
+    }
 }
 
 #btn {
     text-align: left;
+}
+
+.modal-card-head {
+    height: 40%;
+}
+
+.modal-card-body {
+    height: 120px;
 }

@@ -79,8 +79,9 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.use("/todos", completedTodosRouter, todosRouter);
 app.use("/", usersRouter);
+app.use("/todos", todosRouter);
+app.use("/todos", completedTodosRouter);
 
 /////////////// ERROR HANDLERS ////////////////////
 // Detect unknown routes
