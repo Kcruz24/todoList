@@ -6,7 +6,9 @@ const { catchAsyncErrors } = require("../utils/catchAsyncErrors");
 
 // GET: Render Index Page (All to-dos)
 module.exports.renderAlltodos = catchAsyncErrors(async (req, res) => {
-    const todos = await ToDo.find({ author: { _id: req.user._id } });
+    const todos = await ToDo.find({
+        author: { _id: req.user._id }
+    });
 
     res.render("todos/index", { todos });
 });
@@ -40,4 +42,19 @@ module.exports.updateTodo = catchAsyncErrors(async (req, res) => {
 
     req.flash("success", "To-do successfully updated!");
     res.redirect("/todos");
+});
+
+// DELETE: Selected todo
+module.exports.deleteTodo = catchAsyncErrors(async (req, res) => {
+    const { id } = req.params;
+    const todoData = await ToDo.findById(id);
+
+    console.log("TODOS todoData Before: ", todoData);
+
+    await ToDo.findByIdAndDelete(id);
+
+    console.log("TODOS todoData After: ", todoData);
+
+    req.flash("success", `${todoData.data} successfully deleted`);
+    res.redirect("/todos/index");
 });

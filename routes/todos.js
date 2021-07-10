@@ -10,7 +10,8 @@ const {
 const {
     renderAlltodos,
     createTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo
 } = require("../controllers/todos");
 
 /////////////////// ROUTES ///////////////////////
@@ -23,6 +24,9 @@ router
     .post(isLoggedIn, validateTodos, validateCompletedTodos, createTodo);
 
 // UPDATE: Selected to-do
-router.put("/:id", isLoggedIn, validateTodos, updateTodo);
+router
+    .route("/:id")
+    .put(isLoggedIn, validateTodos, updateTodo)
+    .delete(isLoggedIn, validateTodos, deleteTodo);
 
 module.exports = router;
