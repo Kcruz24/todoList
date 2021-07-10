@@ -46,3 +46,7 @@ html {
         pointer-events: auto;
     }
 }
+
+#btn {
+    text-align: left;
+}

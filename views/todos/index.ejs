@@ -18,23 +18,30 @@
     </form>
 </div>
 
-<div class="box has-background-info">
+<div class="box has-background-info" id="todoBox">
 
-    <% for (let todo of todos) { %>
-        <div class="columns is-mobile is-gapless">
+    <div class="modal" id="myModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card title">
+                    <%= todos[1].data %>
+                </p>
+                <button class="delete" aria-label="close"></button>
+            </header>
 
-            <div class="column">
-                <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
-                    <input class="box input px-3" type="text" name="data" id="data" value="<%= todo.data %>">
-                </form>
-            </div>
-
-            <div class="column is-3 ml-3">
-                <form action="/todos/<%= todo._id %>" method="POST">
-                    <button class="button is-fullwidth box has-background-success has-text-white mr-2">Done</button>
-                </form>
-            </div>
-
+            <section class="modal-card-body">
+                <input class="modal-content input" type="text" id="todoData" placeholder="<%= todos[1].data %>">
+            </section>
         </div>
-    <% } %>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <button class="button is-primary" id="btn">Modal</button>
 </div>
+
+<script>
+    const stringify = '<%- JSON.stringify(todos) %>'
+    const todos = JSON.parse(stringify);
+</script>
