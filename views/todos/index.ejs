@@ -28,21 +28,21 @@
 
             <header class="modal-card-head mx-5">
                 <p class="modal-card title has-text-centered mb-0">
-                    <%= todo.data %>
+                    <%= todos[0].data %>
                 </p>
                 <button class="delete" aria-label="close"></button>
             </header>
 
             <section class="modal-card-body mx-5 has-background-info">
-                <form action="/todos/<%= todo._id %>?_method=PUT" method="POST" id="editForm">
+                <form action="/todos/<%= todos[0]._id %>?_method=PUT" method="POST" id="editForm">
                     <input class="modal-content input modalInput" type="text" name="data" id="data"
-                        value="<%= todo.data %>">
+                        placeholder="<%= todos[0].data %>">
                 </form>
             </section>
 
             <footer class="modal-card-foot mx-5">
                 <div class="column ml-0 mr-2 mt-0 mb-3 p-0">
-                    <form action="/todos/<%= todo._id %>?_method=DELETE" method="POST">
+                    <form action="/todos/<%= todos[0]._id %>?_method=DELETE" method="POST">
                         <button class="button is-danger is-fullwidth">Delete</button>
                     </form>
                 </div>
@@ -55,30 +55,27 @@
         </div>
     </div>
 
-    <button class="button is-primary" id="btn">Modal</button>
-
+    <% for (let todo of todos) { %>
 
     <!-- INPUT BOX WITH DATA VALUE AND DONE BUTTON -->
-    <!-- <div class="columns is-mobile is-gapless">
+    <div class="columns is-mobile is-gapless">
         <div class="column">
-            <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
-                <input class="box input px-3" type="text" name="data" id="data" value="<%= todo.data %>">
-            </form>
+            <button class="button box input px-3" name="data" id="btn"><%= todo.data %></button>
         </div>
         <div class="column is-3 ml-3">
             <form action="/todos/<%= todo._id %>" method="POST">
                 <button class="button is-fullwidth box has-background-success has-text-white mr-2">Done</button>
             </form>
         </div>
-    </div> -->
-
+    </div>
+    <% } %>
 </div>
 
 <script>
     const stringify = '<%- JSON.stringify(todos) %>'
     const todos = JSON.parse(stringify);
 
-    // To Submit Two forms with one button. 
+    // To Submit Two forms with one button.
     submitForms = function () {
         document.querySelector("form1").submit();
         document.querySelector("form2").submit();
