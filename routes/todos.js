@@ -24,6 +24,7 @@ router
     .post(isLoggedIn, validateTodos, validateCompletedTodos, createTodo);
 
 // UPDATE: Selected to-do
+// DELETE: Selected to-do
 router
     .route("/:id")
     .put(isLoggedIn, validateTodos, updateTodo)

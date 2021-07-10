@@ -24,7 +24,6 @@ router.get(
 );
 
 // POST: Update completed to-do field from false to true.
-// DELETE: Selected to-do.
 router
     .route("/:id")
     .post(
@@ -32,7 +31,14 @@ router
         validateTodos,
         validateCompletedTodos,
         updatedCompletedTodoField
-    )
-    .delete(isLoggedIn, validateCompletedTodos, deleteCompletedTodo);
+    );
+
+// Delete completed to-do's
+router.delete(
+    "/completedTodos/:id",
+    isLoggedIn,
+    validateCompletedTodos,
+    deleteCompletedTodo
+);
 
 module.exports = router;
