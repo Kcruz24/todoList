@@ -80,8 +80,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", usersRouter);
-app.use("/todos", todosRouter);
-app.use("/todos", completedTodosRouter);
+app.use("/todos", todosRouter, completedTodosRouter);
 
 /////////////// ERROR HANDLERS ////////////////////
 // Detect unknown routes

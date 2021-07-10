@@ -56,5 +56,5 @@ module.exports.deleteTodo = catchAsyncErrors(async (req, res) => {
     console.log("TODOS todoData After: ", todoData);
 
     req.flash("success", `${todoData.data} successfully deleted`);
-    res.redirect("/todos/index");
+    res.redirect("/todos");
 });
