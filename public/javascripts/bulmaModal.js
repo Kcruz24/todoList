@@ -1,9 +1,3 @@
-let i = 1;
-for (let todo of todos) {
-    console.log(i + ": " + todo.data);
-    i++;
-}
-
 class BulmaModal {
     constructor(selector) {
         this.elem = document.querySelector(selector);
