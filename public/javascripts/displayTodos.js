@@ -1,4 +1,4 @@
-let modals = [];
+
 let i = 0;
 
 for (let todo of todos) {
@@ -32,7 +32,7 @@ for (let todo of todos) {
 
     displayBulmaModal(todo);
 
-    modals.push(new BulmaModal(".modal"));
+
 
     // Append elements
     todoBox.appendChild(columnsIsMobile);
@@ -44,18 +44,40 @@ for (let todo of todos) {
 
     column2.appendChild(form2);
     form2.appendChild(form2Button);
+
+
+
 }
 
 let btn = document.querySelectorAll("#btn");
+let modal = document.querySelector(".modal");
+let modalBg = document.querySelectorAll(".modal-background");
+let modalClose = document.querySelectorAll(".delete");
 // let mdl = new BulmaModal(".modal");
 
+console.log("All modals", modals);
 console.log("Modals: ", modals[2]);
+console.log("Modals: ", modals[2].elem);
+console.log("Modals: ", modals[2].elem.childNodes);
+console.log("Modals: ", modals[2].elem.childNodes[1].childNodes);
 
 btn.forEach((elem) => {
     elem.addEventListener("click", () => {
         modals[1].show();
     });
 });
+
+// modalBg.forEach((elem) => {
+//     elem.addEventListener("click", () => {
+//         modal.classList.remove("is-active");
+//     });
+// });
+
+// modalClose.forEach((elem) => {
+//     elem.addEventListener("click", () => {
+//         modal.classList.remove("is-active");
+//     });
+// });
 
 // btn.addEventListener("click", () => {
 //     modals[2].show();
@@ -104,7 +126,6 @@ btn.forEach((elem) => {
 //     });
 // });
 
-
 /////////////////////////////////////////////////////////////////////////
 // //One Modal
 // function OpenModal() {
@@ -121,7 +142,6 @@ btn.forEach((elem) => {
 //     //Change style of modal number [n] to display = "block"
 //     modal[n].style.display = "block";
 // }
-
 
 // window.onclick = function (event) {
 //     //For single modal

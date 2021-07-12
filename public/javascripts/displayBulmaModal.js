@@ -1,4 +1,5 @@
 // ///////////////// Display Bulma Modal ///////////////////
+let modals = [];
 
 function displayBulmaModal(todo) {
     ////// Select parent element //////
@@ -116,6 +117,8 @@ function displayBulmaModal(todo) {
 
     modalCardFooter.appendChild(modalCardColumn2);
     modalCardColumn2.appendChild(modalCardColumn2Button);
+
+    modals.push(new BulmaModal(".modal"));
 }
 
 // Supestamente este es el codigo que tiene la pagina oficial de Bulma
