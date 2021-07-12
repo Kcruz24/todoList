@@ -19,11 +19,22 @@
     </form>
 </div>
 
+<!-- DISPLAY TODO'S -->
 <div class="box has-background-info" id="todoBox">
-
-
-
-
+    <% for (let todo of todos) { %>
+    <div class="columns is-mobile is-gapless">
+        <div class="column">
+            <form action="/todos/<%= todo._id %>?_method=PUT" method="POST">
+                <input class="box input px-3" type="text" name="data" id="data" value="<%= todo.data %>">
+            </form>
+        </div>
+        <div class="column is-3 ml-3">
+            <form action="/todos/<%= todo._id %>" method="POST">
+                <button class="button is-fullwidth box has-background-success has-text-white mr-2">Done</button>
+            </form>
+        </div>
+    </div>
+    <% } %>
 </div>
 
 <script>
