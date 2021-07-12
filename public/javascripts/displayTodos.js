@@ -18,7 +18,7 @@ for (let todo of todos) {
     column1Button.name = "data";
     column1Button.id = "btn";
     // column1Button.onclick = OpenMore(i);
-    i++;
+    // i++;
     column1Button.innerText = todo.data;
 
     column2.className = "column is-3 ml-3";
@@ -32,6 +32,7 @@ for (let todo of todos) {
 
     displayBulmaModal(todo);
 
+    // modals.push(new BulmaModal(".modal"));
 
 
     // Append elements
@@ -45,27 +46,41 @@ for (let todo of todos) {
     column2.appendChild(form2);
     form2.appendChild(form2Button);
 
+    // (function () {
+    //     let btn = document.querySelector("#btn");
+    //     let modal = document.querySelector(".modal");
 
+    //     btn.addEventListener("click", () => {
+    //         alert("Btn Clicked", todo.data);
+    //         // modal.classList.add("is-active");
+    //     });
+    // })();
 
+    i++;
 }
+let btns = document.querySelectorAll("#btn");
+// let modal = document.querySelector(".modal");
 
-let btn = document.querySelectorAll("#btn");
-let modal = document.querySelector(".modal");
-let modalBg = document.querySelectorAll(".modal-background");
-let modalClose = document.querySelectorAll(".delete");
+// for (let btn of btns) {
+//     (function () {
+//         let modal = document.querySelector(".modal");
+
+//         btn.addEventListener("click", () => {
+//             console.log("Btn Clicked out ", btn);
+//             modal.classList.add("is-active");
+//         });
+//     })();
+// }
+
 // let mdl = new BulmaModal(".modal");
 
-console.log("All modals", modals);
-console.log("Modals: ", modals[2]);
-console.log("Modals: ", modals[2].elem);
-console.log("Modals: ", modals[2].elem.childNodes);
-console.log("Modals: ", modals[2].elem.childNodes[1].childNodes);
+// console.log("Modals: ", modals[2]);
 
-btn.forEach((elem) => {
-    elem.addEventListener("click", () => {
-        modals[1].show();
-    });
-});
+// btn.forEach((elem) => {
+//     elem.addEventListener("click", () => {
+//         modal.classList.add("is-active");
+//     });
+// });
 
 // modalBg.forEach((elem) => {
 //     elem.addEventListener("click", () => {
@@ -80,7 +95,7 @@ btn.forEach((elem) => {
 // });
 
 // btn.addEventListener("click", () => {
-//     modals[2].show();
+//     modal.classList.add("is-active");
 // });
 
 // modals[2].addEventListener("modal:show", function () {
