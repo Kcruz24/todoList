@@ -1,3 +1,9 @@
+// While in development mode require dotenv
+const onDevelopment = process.env.NODE_ENV !== "production";
+if (onDevelopment) {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -18,15 +24,14 @@ const todosRouter = require("./routes/todos");
 const usersRouter = require("./routes/users");
 const completedTodosRouter = require("./routes/completedTodos");
 
-// Controllers
-const { sessionConfig } = require("./controllers/users");
-
 // Models
 const User = require("./models/user");
+const { constants } = require("perf_hooks");
 
 // DB Connection
+const dbUrl = "mongodb://localhost:27017/todoList";
 mongoose
-    .connect("mongodb://localhost:27017/todoList", {
+    .connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -51,6 +56,34 @@ app.use(express.static(path.join(__dirname, "views")));
 
 /////////////////// AUTH ///////////////////
 // Session //
+const secret = process.env.SECRET || "thisshouldbeasecret";
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret
+    }
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e);
+});
+
+const sessionConfig = {
+    store,
+    name: "session",
+    secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        //                    ms     s    m    h   d
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true
+    }
+};
+
 app.use(session(sessionConfig));
 
 // Passport //
@@ -65,6 +98,17 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //////////////// MIDDLEWARES ///////////////////
+
+// Handle Common Security issues //
+app.use(
+    mongoSanitize({
+        replaceWith: "_"
+    })
+);
+
+// Helmet
+app.use(helmet({ contentSecurityPolicy: false }));
+
 app.use(flash());
 
 // Locals //
@@ -104,7 +148,7 @@ app.use((err, req, res, next) => {
 });
 
 /////////////////// PORT ////////////////////
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`LISTENING ON PORT ${port}!`);
 });
