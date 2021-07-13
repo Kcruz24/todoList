@@ -53,6 +53,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
 
 /////////////////// AUTH ///////////////////
+// Helmet
+app.use(helmet({ contentSecurityPolicy: false }));
+
+// Flash
+app.use(flash());
+
 // Session //
 const secret = process.env.SECRET || "thisshouldbeasecret";
 
@@ -96,7 +102,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //////////////// MIDDLEWARES ///////////////////
-app.use(flash());
 
 // Handle Common Security issues //
 app.use(
@@ -104,11 +109,6 @@ app.use(
         replaceWith: "_"
     })
 );
-
-// Helmet
-app.use(helmet({ contentSecurityPolicy: false }));
-
-
 
 // Locals //
 app.use((req, res, next) => {
