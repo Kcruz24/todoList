@@ -30,20 +30,18 @@ const { constants } = require("perf_hooks");
 
 // DB Connection
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/todoList";
-mongoose
-    .connect(dbUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    })
-    .then(() => {
-        console.log("MONGOOSE CONNECTION OPEN!!!");
-    })
-    .catch((err) => {
-        console.log("OH NO MONGOOSE CONNECTION ERROR!!!");
-        console.log(err);
-    });
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console.error, "connection error"));
+db.once("open", () => {
+    console.log("DATABASE CONNECTED!");
+});
 
 // Config //
 app.engine("ejs", ejsMate);
@@ -98,6 +96,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //////////////// MIDDLEWARES ///////////////////
+app.use(flash());
 
 // Handle Common Security issues //
 app.use(
@@ -109,7 +108,7 @@ app.use(
 // Helmet
 app.use(helmet({ contentSecurityPolicy: false }));
 
-app.use(flash());
+
 
 // Locals //
 app.use((req, res, next) => {
