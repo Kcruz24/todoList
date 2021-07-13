@@ -54,7 +54,7 @@ app.use(express.static(path.join(__dirname, "views")));
 
 /////////////////// AUTH ///////////////////
 // Helmet
-app.use(helmet({ contentSecurityPolicy: false }));
+// app.use(helmet({ contentSecurityPolicy: false }));
 
 // Flash
 app.use(flash());
